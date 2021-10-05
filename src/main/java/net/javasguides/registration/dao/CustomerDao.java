@@ -9,8 +9,12 @@ import java.sql.SQLException;
 import net.javasguides.registration.model.Customer;
 
 public class CustomerDao {
-
+	public void checkCustomer(Customer customer) throws ClassNotFoundException
+	{
+		
+	}
     public int registerCustomer(Customer customer) throws ClassNotFoundException {
+    	
         String INSERT_USERS_SQL = "INSERT INTO customer" +
             "  (id, first_name, last_name, password, email) VALUES " +
             " (?, ?, ?, ?, ?);";
@@ -24,7 +28,7 @@ public class CustomerDao {
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-            preparedStatement.setInt(1, 1);
+            preparedStatement.setInt(1, 0);
             preparedStatement.setString(2, customer.getFirstName());
             preparedStatement.setString(3, customer.getLastName());
             preparedStatement.setString(4, customer.getPassword());
