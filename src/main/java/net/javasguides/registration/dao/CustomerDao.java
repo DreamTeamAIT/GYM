@@ -9,27 +9,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import net.javasguides.registration.model.Customer;
-import sun.security.mscapi.CKeyPairGenerator.RSA;
+
 
 public class CustomerDao {
 	//We want to make sure we don't have duplicate emails or passwords. This code checks for that by counting how many 
 	// duplicates of the new email and password we get and returns an appropiate error message.
 	public String checkCustomer(Customer customer) throws ClassNotFoundException
 	{
+		Class.forName("com.mysql.jdbc.Driver");
 		
-		String DUPLICATE_EMAIL_SQL = "SELECT COUNT(*) FROM customer where email = " + customer.getEmail() + ";" ;
-		String DUPLICATE_PASSWORD_SQL = "SELECT COUNT(*) FROM customer where password = " + customer.getPassword() + ";" ;
+		String DUPLICATE_EMAIL_SQL = "SELECT COUNT(*) FROM customer where email = \"" + customer.getEmail() + "\";" ;
+		String DUPLICATE_PASSWORD_SQL = "SELECT COUNT(*) FROM customer where password = \"" + customer.getPassword() + "\";" ;
 		
 		try (Connection connection = DriverManager
 	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "geochelone");
 
 	            PreparedStatement emailPreparedStatement = connection.prepareStatement(DUPLICATE_EMAIL_SQL);
-	            		PreparedStatement passwordPreparedStatement = connection.prepareStatement(DUPLICATE_EMAIL_SQL)) {
+        		PreparedStatement passwordPreparedStatement = connection.prepareStatement(DUPLICATE_PASSWORD_SQL)) {
 	            System.out.println(emailPreparedStatement);
 	            // Step 3: Execute the query or update query
 	            ResultSet result = emailPreparedStatement.executeQuery();
-	            int count = result.getInt(0);
-	            if(count >= 0)
+	            result.next();
+	            int count = result.getInt("COUNT(*)");
+	            if(count > 0)
 	            {
 	            	return "Duplicate Email";
 	            }
@@ -39,8 +41,9 @@ public class CustomerDao {
 	    	            System.out.println(passwordPreparedStatement);
 	    	            // Step 3: Execute the query or update query
 	    	            result = passwordPreparedStatement.executeQuery();
-	    	            count = result.getInt(0);
-	    	            if(count >= 0)
+	    	            result.next();
+	    	            count = result.getInt("COUNT(*)");
+	    	            if(count > 0)
 	    	            {
 	    	            	return "Duplicate Password";
 	    	            }
@@ -84,7 +87,8 @@ public class CustomerDao {
             // process sql exception
             printSQLException(e);
         }
-        return result;
+        return result;	
+        
     }
 
     private void printSQLException(SQLException ex) {
