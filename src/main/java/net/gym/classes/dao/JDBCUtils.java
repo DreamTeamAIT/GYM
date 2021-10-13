@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class JDBCUtils {
 
-	private static String jdbcURL = "jdbc:mysql://localhost:3306/gym";
+	private static String jdbcURL = "jdbc:mysql://localhost:3306/gym?useSSL=false";
 	private static String jdbcUsername = "root";
 	private static String jdbcPassword = "admin";
 

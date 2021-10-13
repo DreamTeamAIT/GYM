@@ -55,7 +55,7 @@
     </caption>
 
     <c:if test="${classes != null}">
-     <input type="hidden" name="id" value="<c:out value='${classes.classID}' />" />
+     <input type="hidden" name="classID" value="<c:out value='${classes.classID}' />" />
     </c:if>
 
     <fieldset class="form-group">

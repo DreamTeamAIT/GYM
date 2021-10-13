@@ -63,11 +63,12 @@ public class ClassesCRUDServlet extends HttpServlet {
 			case "/list":
 				listClasses(request, response);
 				break;
-			/**
-			 * default: RequestDispatcher dispatcher =
-			 * request.getRequestDispatcher("login/login.jsp"); dispatcher.forward(request,
-			 * response); break;
-			 */
+
+			default:
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+				dispatcher.forward(request, response);
+				break;
+
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
