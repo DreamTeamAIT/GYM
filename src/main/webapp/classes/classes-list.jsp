@@ -63,9 +63,9 @@
        <td><c:out value="${classes.instructor}" /></td>
        <td><c:out value="${classes.classtime}" /></td>
 
-       <td><a href="edit?id=<c:out value='${classes.classID}' />">Edit</a>
+       <td><a href="edit?classID=<c:out value='${classes.classID}' />">Edit</a>
         &nbsp;&nbsp;&nbsp;&nbsp; <a
-        href="delete?id=<c:out value='${classes.classID}' />">Delete</a></td>
+        href="delete?classID=<c:out value='${classes.classID}' />">Delete</a></td>
 
        <!--  <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button>
                  <button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete</button></td> -->

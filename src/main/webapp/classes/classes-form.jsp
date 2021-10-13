@@ -61,19 +61,19 @@
     <fieldset class="form-group">
      <label>Class Title</label> <input type="text"
       value="<c:out value='${classes.classname}' />" class="form-control"
-      name="title" required="required" minlength="5">
+      name="classname" required="required" minlength="5">
     </fieldset>
 
     <fieldset class="form-group">
      <label>Class Instructor</label> <input type="text"
       value="<c:out value='${classes.instructor}' />" class="form-control"
-      name="description" minlength="5">
+      name="instructor" minlength="5">
     </fieldset>
     
       <fieldset class="form-group">
      <label>Class Time</label> <input type="text"
       value="<c:out value='${classes.classtime}' />" class="form-control"
-      name="description" minlength="5">
+      name="classtime" minlength="5">
     </fieldset>
     
     <button type="submit" class="btn btn-success">Save</button>

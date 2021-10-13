@@ -16,7 +16,7 @@ public class ClassesCRUDDao implements IClassesCRUDDao {
 
 	private static final String SELECT_CLASSES_BY_ID = "select classID,classname,instructor,classtime from classes where classID =?";
 	private static final String SELECT_ALL_CLASSES = "select * from classes";
-	private static final String DELETE_CLASSES_BY_ID = "delete from classes where id = ?;";
+	private static final String DELETE_CLASSES_BY_ID = "delete from classes where classID = ?;";
 	private static final String UPDATE_CLASSES = "update classes set classname = ?, instructor= ?, classtime =? where classID = ?;";
 
 	public ClassesCRUDDao() {
