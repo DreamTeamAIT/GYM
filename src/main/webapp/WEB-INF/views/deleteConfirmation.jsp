@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Account succcessfully registered</h1>
+	<h1>Account succcessfully deleted</h1>
 </body>
 </html>

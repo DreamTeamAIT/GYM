@@ -22,7 +22,7 @@ public class CustomerDao {
 		String DUPLICATE_PASSWORD_SQL = "SELECT COUNT(*) FROM customer where password = \"" + customer.getPassword() + "\";" ;
 		
 		try (Connection connection = DriverManager
-	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "geochelone");
+	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
 
 	            PreparedStatement emailPreparedStatement = connection.prepareStatement(DUPLICATE_EMAIL_SQL);
         		PreparedStatement passwordPreparedStatement = connection.prepareStatement(DUPLICATE_PASSWORD_SQL)) {
@@ -69,8 +69,7 @@ public class CustomerDao {
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "geochelone");
-
+            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setInt(1, 0);
@@ -90,7 +89,58 @@ public class CustomerDao {
         return result;	
         
     }
+    
+    public void deleteCustomer(Customer customer) throws ClassNotFoundException
+{
+    	String 	DELETE_USERS_SQL = "DELETE FROM customer WHERE first_name = \"" + customer.getFirstName() 
+    	+ "\" AND last_name = \"" + customer.getLastName() + "\" AND password = \"" + customer.getPassword() + "\" ;" ;
+        
+        Class.forName("com.mysql.jdbc.Driver");
 
+        try (Connection connection = DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL)) {
+
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            // process sql exception
+            printSQLException(e);
+        }
+}
+    public boolean deleteChecker(Customer customer) throws ClassNotFoundException
+    {
+Class.forName("com.mysql.jdbc.Driver");
+		
+		String CHECK_DETAILS_SQL = "SELECT COUNT(*) FROM customer where first_name = \"" + customer.getFirstName() + "\", last_name = \"" 
+				+ customer.getLastName() + "\", password = \"" + customer.getPassword() + "\" ;";
+
+		try (Connection connection = DriverManager
+	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
+
+	            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_DETAILS_SQL)) {
+	            System.out.println(preparedStatement);
+	            // Step 3: Execute the query or update query
+	            ResultSet result = preparedStatement.executeQuery();
+	            result.next();
+	            int count = result.getInt("COUNT(*)");
+	            if(count > 0)
+	            {
+	            	return false;
+	            }
+	            else
+	            {
+		           return true;
+	            }
+	        } catch (SQLException e) {
+	            // process sql exception
+	            printSQLException(e);
+	            return false;
+	        }
+    }
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {

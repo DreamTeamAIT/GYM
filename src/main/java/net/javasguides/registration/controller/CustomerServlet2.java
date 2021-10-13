@@ -15,7 +15,7 @@ import net.javasguides.registration.model.Customer;
 /**
  * Servlet implementation class customerServlet
  */
-@WebServlet("/register")
+@WebServlet("/delete")
 public class CustomerServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -51,14 +51,11 @@ public class CustomerServlet2 extends HttpServlet {
 			//We want to check for password and email duplicates, and if there are we want to stop the page and display an error
 			//If it passes, we want to register the customer.
 			Customer customer = new Customer(firstName, lastName, password, email);
-			String check = customerDao.checkCustomer(customer);
-			System.out.println(check);
-			if (check.equals("No duplicates."));
-			{
-				customerDao.registerCustomer(customer);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customerDetails.jsp");
-				dispatcher.forward(request, response);
-			}
+
+			customerDao.deleteCustomer(customer);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/deleteConfirmation.jsp");
+			dispatcher.forward(request, response);
+			
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
