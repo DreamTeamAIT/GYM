@@ -16,14 +16,14 @@ import net.javasguides.registration.model.Customer;
  * Servlet implementation class customerServlet
  */
 @WebServlet("/register")
-public class CustomerServlet extends HttpServlet {
+public class CustomerRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private CustomerDao customerDao = new CustomerDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerServlet() {
+    public CustomerRegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -16,14 +16,14 @@ import net.javasguides.registration.model.Customer;
  * Servlet implementation class customerServlet
  */
 @WebServlet("/delete")
-public class CustomerServlet2 extends HttpServlet {
+public class CustomerUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private CustomerDao customerDao = new CustomerDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerServlet2() {
+    public CustomerUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -60,7 +60,9 @@ public class CustomerServlet2 extends HttpServlet {
 			}
 			else 
 			{
-				request.setAttribute("errorlog", "Customer details not found.");			
+				request.setAttribute("errorlog", "Customer details not found.");		
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/deleteError.jsp");
+				dispatcher.forward(request, response);
 			}
 			
 		} catch (ClassNotFoundException e) {
