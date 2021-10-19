@@ -12,6 +12,7 @@ import net.javasguides.registration.model.Customer;
 
 
 public class CustomerDao {
+	String password = "geochelone";
 	//We want to make sure we don't have duplicate emails or passwords. This code checks for that by counting how many 
 	// duplicates of the new email and password we get and returns an appropiate error message.
 	public String checkCustomer(Customer customer) throws ClassNotFoundException
@@ -22,7 +23,7 @@ public class CustomerDao {
 		String DUPLICATE_PASSWORD_SQL = "SELECT COUNT(*) FROM customer where password = \"" + customer.getPassword() + "\";" ;
 		
 		try (Connection connection = DriverManager
-	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
+	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
 
 	            PreparedStatement emailPreparedStatement = connection.prepareStatement(DUPLICATE_EMAIL_SQL);
         		PreparedStatement passwordPreparedStatement = connection.prepareStatement(DUPLICATE_PASSWORD_SQL)) {
@@ -58,6 +59,7 @@ public class CustomerDao {
 	            return "Connection Error";
 	        }
 	}
+	// This code handles entering a customer into our database.
     public int registerCustomer(Customer customer) throws ClassNotFoundException {
     	
         String INSERT_USERS_SQL = "INSERT INTO customer" +
@@ -69,7 +71,7 @@ public class CustomerDao {
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
+            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setInt(1, 0);
@@ -89,7 +91,7 @@ public class CustomerDao {
         return result;	
         
     }
-    
+    // Deletes the customer in the database
     public void deleteCustomer(Customer customer) throws ClassNotFoundException
 {
     	String 	DELETE_USERS_SQL = "DELETE FROM customer WHERE first_name = \"" + customer.getFirstName() 
@@ -98,7 +100,7 @@ public class CustomerDao {
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
+            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL)) {
 
@@ -111,15 +113,16 @@ public class CustomerDao {
             printSQLException(e);
         }
 }
+    // Before deleting a customer, we check to make sure they exist.
     public boolean deleteChecker(Customer customer) throws ClassNotFoundException
     {
-Class.forName("com.mysql.jdbc.Driver");
+    	Class.forName("com.mysql.jdbc.Driver");
 		
-		String CHECK_DETAILS_SQL = "SELECT COUNT(*) FROM customer where first_name = \"" + customer.getFirstName() + "\", last_name = \"" 
-				+ customer.getLastName() + "\", password = \"" + customer.getPassword() + "\" ;";
+		String CHECK_DETAILS_SQL = "SELECT COUNT(*) FROM customer where first_name = \"" + customer.getFirstName() + "\" AND last_name = \"" 
+				+ customer.getLastName() + "\" AND password = \"" + customer.getPassword() + "\" ;";
 
 		try (Connection connection = DriverManager
-	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", "root");
+	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
 
 	            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_DETAILS_SQL)) {
 	            System.out.println(preparedStatement);
@@ -127,7 +130,7 @@ Class.forName("com.mysql.jdbc.Driver");
 	            ResultSet result = preparedStatement.executeQuery();
 	            result.next();
 	            int count = result.getInt("COUNT(*)");
-	            if(count > 0)
+	            if(count == 0)
 	            {
 	            	return false;
 	            }

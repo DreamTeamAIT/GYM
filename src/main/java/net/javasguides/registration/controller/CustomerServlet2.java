@@ -45,17 +45,23 @@ public class CustomerServlet2 extends HttpServlet {
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String password = request.getParameter("password");
-		String email = request.getParameter("email");
 		
-		try {
+		try 
+		{
 			//We want to check for password and email duplicates, and if there are we want to stop the page and display an error
 			//If it passes, we want to register the customer.
-			Customer customer = new Customer(firstName, lastName, password, email);
-
-			customerDao.deleteCustomer(customer);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/deleteConfirmation.jsp");
-			dispatcher.forward(request, response);
+			Customer customer = new Customer(firstName, lastName, password, "");
 			
+			if (customerDao.deleteChecker(customer))
+			{
+				customerDao.deleteCustomer(customer);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/deleteConfirmation.jsp");
+				dispatcher.forward(request, response);
+			}
+			else 
+			{
+				request.setAttribute("errorlog", "Customer details not found.");			
+			}
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
