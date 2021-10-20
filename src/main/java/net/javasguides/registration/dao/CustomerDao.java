@@ -9,10 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import net.javasguides.registration.model.Customer;
-
+import net.javasguides.registration.Utilities.Utility;;
 
 public class CustomerDao {
-	String password = "geochelone";
 	//We want to make sure we don't have duplicate emails or passwords. This code checks for that by counting how many 
 	// duplicates of the new email and password we get and returns an appropiate error message.
 	public String checkCustomer(Customer customer) throws ClassNotFoundException
@@ -22,8 +21,7 @@ public class CustomerDao {
 		String DUPLICATE_EMAIL_SQL = "SELECT COUNT(*) FROM customer where email = \"" + customer.getEmail() + "\";" ;
 		String DUPLICATE_PASSWORD_SQL = "SELECT COUNT(*) FROM customer where password = \"" + customer.getPassword() + "\";" ;
 		
-		try (Connection connection = DriverManager
-	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
+		try (Connection connection = Utility.getConnection();
 
 	            PreparedStatement emailPreparedStatement = connection.prepareStatement(DUPLICATE_EMAIL_SQL);
         		PreparedStatement passwordPreparedStatement = connection.prepareStatement(DUPLICATE_PASSWORD_SQL)) {
@@ -70,8 +68,7 @@ public class CustomerDao {
 
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
+        try (Connection connection = Utility.getConnection();
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setInt(1, 0);
@@ -99,8 +96,7 @@ public class CustomerDao {
         
         Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
+        try (Connection connection = Utility.getConnection();
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL)) {
 
@@ -121,8 +117,7 @@ public class CustomerDao {
 		String CHECK_DETAILS_SQL = "SELECT COUNT(*) FROM customer where first_name = \"" + customer.getFirstName() + "\" AND last_name = \"" 
 				+ customer.getLastName() + "\" AND password = \"" + customer.getPassword() + "\" ;";
 
-		try (Connection connection = DriverManager
-	            .getConnection("jdbc:mysql://localhost:3306/mysql_database?allowPublicKeyRetrieval=true&useSSL=false & serverTimezone=UTC", "root", password);
+		try (Connection connection = Utility.getConnection();
 
 	            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_DETAILS_SQL)) {
 	            System.out.println(preparedStatement);
@@ -137,6 +132,36 @@ public class CustomerDao {
 	            else
 	            {
 		           return true;
+	            }
+	        } catch (SQLException e) {
+	            // process sql exception
+	            printSQLException(e);
+	            return false;
+	        }
+    }
+    //When logging in, we want to check whether the username and password match an existing entry. It's similar the check for existing user for registration,
+    // except we're looking for entries with the same username and password.
+    public boolean logInChecker(Customer customer) throws ClassNotFoundException
+    {
+    	Class.forName("com.mysql.jdbc.Driver");
+		
+		String LOG_IN_SQL = "SELECT COUNT(*) FROM customer where email = \"" + customer.getEmail() + "\" AND password = \"" + customer.getPassword() + "\";" ;
+		
+		try (Connection connection = Utility.getConnection();
+	            PreparedStatement preparedStatement = connection.prepareStatement(LOG_IN_SQL);) {
+	            System.out.println(preparedStatement);
+	            // Step 3: Execute the query or update query
+	            ResultSet result = preparedStatement.executeQuery();
+	            result.next();
+	            int count = result.getInt("COUNT(*)");
+	            //It should be count == 1, since there shouldn't be duplicate entires, but keeping it > 0 means if there are duplicates we can still log in.
+	            if(count > 0)
+	            {
+	            	return true;
+	            }
+	            else 
+	            {
+	            	return false;
 	            }
 	        } catch (SQLException e) {
 	            // process sql exception

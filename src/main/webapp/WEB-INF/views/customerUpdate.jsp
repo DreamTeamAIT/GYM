@@ -10,7 +10,7 @@
  <div align="center">
   <h1>Customer Update Form</h1>
   <h2>Enter new elements to update. Leave blank to not update.</h2>
-  <form action="<%= request.getContextPath() %>/register" method="post">
+  <form action="<%= request.getContextPath() %>/update" method="post">
    <table style="with: 80%">
     <tr>
      <td>User ID</td>
