@@ -4,22 +4,21 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>GYM</title>
+<title>Insert title here</title>
 </head>
 <body>
  <div align="center">
-  <h1>GYM Login Form</h1>
-  <form action="<%=request.getContextPath()%>/login" method="post">
-   <table style="with: 100%">
-    <tr>
-     <td>UserName</td>
-     <td><input type="text" name="username" /></td>
+  <h1>Customer Register Form</h1>
+  <form action="<%= request.getContextPath() %>/logIn" method="post">
+   <table style="with: 80%">
+   <tr>
+     <td>Email Address</td>
+     <td><input type="text" name="email" /></td>
     </tr>
     <tr>
      <td>Password</td>
      <td><input type="password" name="password" /></td>
-    </tr>
-
+    </tr> 
    </table>
    <input type="submit" value="Submit" />
   </form>
