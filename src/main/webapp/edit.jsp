@@ -45,17 +45,23 @@
 			<!--  <table class="table table-bordered">-->
 				<tbody>
 					<div align="center">
-						<form action="<%=request.getContextPath()%>/instructorcontroller"
+						<form action="<%=request.getContextPath()%>/update"
 							method="post">
 							<table style="with: 100%">
 								<tr>
 									<td>Instructor Name</td>
-									<td><input type="text" name="name" /></td>
+									<td>
+									<input type="hidden" name="id" value="${instructor.id}"/>
+									<input type="text" name="name" value="${instructor.name}"/>
+									<%-- <c:out value="${instructor.name}"/>  --%>
+									</td>
 								</tr>
 								
 								<tr>
 									<td>Gender</td>
-									<td><input type="text" name="gender" /></td>
+									<td>
+										<input type="text" name="gender" value="${instructor.gender}"/>
+									</td>
 								</tr>
 								<tr>
 									<td></td>

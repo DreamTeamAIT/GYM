@@ -63,17 +63,16 @@ public class InstructorController extends HttpServlet {
 		Instructor instructor = new Instructor();
 		instructor.setName(name);
 		instructor.setGender(gender);
+		
+		
 
 		try {
-			if (instructorDao.validate(instructor)) {
+			instructorDao.validate(instructor);
 				// HttpSession session = request.getSession();
 				// session.setAttribute("username",username);
-				response.sendRedirect("loginsuccess.jsp");
-			} else {
-				HttpSession session = request.getSession();
-				// session.setAttribute("user", username);
-				// response.sendRedirect("login.jsp");
-			}
+				response.sendRedirect("/GYM/instructorcontroller");
+			
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

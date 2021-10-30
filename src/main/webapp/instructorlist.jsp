@@ -24,7 +24,7 @@
 
    <ul class="navbar-nav">
     <li><a href="<%=request.getContextPath()%>/list"
-     class="nav-link">Blah</a></li>
+     class="nav-link">Listing page</a></li>
    </ul>
 
    <ul class="navbar-nav navbar-collapse justify-content-end">
