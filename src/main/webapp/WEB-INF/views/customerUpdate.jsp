@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Update Customer Details</title>
+<jsp:include page="../common/header.jsp"></jsp:include>
 </head>
 <body>
  <div align="center">
   <h1>Customer Update Form</h1>
-  <h2>Enter new elements to update. Leave blank to not update.</h2>
-  <form action="<%= request.getContextPath() %>/update" method="post">
+  <h2>Enter new elements to update. Leave blank to not update. Enter id to confirm identity.</h2>
+  <form action="<%= request.getContextPath() %>/updateCustomer" method="post">
    <table style="with: 80%">
     <tr>
      <td>User ID</td>
@@ -36,5 +37,6 @@
    <input type="submit" value="Update" />
   </form>
  </div>
+   <jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>

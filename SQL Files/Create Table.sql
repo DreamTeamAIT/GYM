@@ -17,4 +17,4 @@ INSERT INTO customer (id, first_name, last_name, password, email)
 VALUES (2, "Paul", "Rice", "678910", "paulrocks@email.com");
 
 SELECT * FROM customer;
-SELECT COUNT(*) FROM customer where first_name = "" AND last_name = "" AND password = "" ;	
+UPDATE customer set first_name = "Beter" where id = 2;

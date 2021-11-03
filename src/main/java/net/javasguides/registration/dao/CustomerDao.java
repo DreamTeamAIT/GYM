@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.javasguides.registration.model.Customer;
 import net.javasguides.registration.Utilities.Utility;;
@@ -167,6 +169,101 @@ public class CustomerDao {
 	            // process sql exception
 	            printSQLException(e);
 	            return false;
+	        }
+    }
+    //This updates our entry. We only want to update variables that were filled in, so we ignore empty fields.
+    public void updateCustomer(Customer customer, String ID) throws ClassNotFoundException
+    {
+    	Class.forName("com.mysql.jdbc.Driver");
+    	String UPDATE_SQL = "";
+    	if(!(customer.getFirstName().equals("")))
+		{
+    		UPDATE_SQL = "UPDATE customer set first_name = \"" + customer.getFirstName() + "\" where id = " + ID +";";
+    		try (Connection connection = Utility.getConnection();
+    	            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);) 
+    		{
+    	            System.out.println(preparedStatement);
+    	            // Step 3: Execute the query or update query
+    	            preparedStatement.executeUpdate();
+    		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    	
+    	if(!(customer.getLastName().equals("")))
+		{
+    		UPDATE_SQL = "UPDATE customer set last_name = \"" + customer.getLastName() + "\" where id = " + ID +";";
+    		try (Connection connection = Utility.getConnection();
+    	            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);) 
+    		{
+    	            System.out.println(preparedStatement);
+    	            // Step 3: Execute the query or update query
+    	            preparedStatement.executeUpdate();
+    		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    	
+    	if(!(customer.getEmail().equals("")))
+		{
+    		UPDATE_SQL = "UPDATE customer set email = \"" + customer.getEmail() + "\" where id = " + ID +";";
+    		try (Connection connection = Utility.getConnection();
+    	            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);) 
+    		{
+    	            System.out.println(preparedStatement);
+    	            // Step 3: Execute the query or update query
+    	            preparedStatement.executeUpdate();
+    		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+    	
+    	if(!(customer.getPassword().equals("")))
+		{
+    		UPDATE_SQL = "UPDATE customer set password = \"" + customer.getPassword() + "\" where id = " + ID +";";
+    		try (Connection connection = Utility.getConnection();
+    	            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL);) 
+    		{
+    	            System.out.println(preparedStatement);
+    	            // Step 3: Execute the query or update query
+    	            preparedStatement.executeUpdate();
+    		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+    }
+    
+    public List <Customer> selectAllCustomer() throws ClassNotFoundException
+    {
+    	List <Customer> customerList = new ArrayList < > ();
+    	Class.forName("com.mysql.jdbc.Driver");
+		
+		String SELECT_ALL_SQL = "SELECT * FROM customer;";
+
+		try (Connection connection = Utility.getConnection();
+
+	            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_SQL)) {
+	            System.out.println(preparedStatement);
+	            // Step 3: Execute the query or update query
+	            ResultSet result = preparedStatement.executeQuery();
+				while (result.next()) {
+	                int id  = result.getInt("id");
+	                String firstName = result.getString("first_name");
+	                String lastName = result.getString("last_name");
+	                String password = result.getString("password");
+	                String email = result.getString("email");
+	                customerList.add(new Customer(firstName,lastName, password, email));
+	            }
+				return customerList;
+	        } catch (SQLException e) {
+	            // process sql exception
+	            printSQLException(e);
+	            return customerList;
 	        }
     }
     private void printSQLException(SQLException ex) {

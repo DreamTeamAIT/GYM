@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Account Deleted Successfully</title>
+<jsp:include page="../common/header.jsp"></jsp:include>
 </head>
 <body>
 	<h1>Account succcessfully deleted</h1>
 </body>
+  <jsp:include page="../common/footer.jsp"></jsp:include>
 </html>

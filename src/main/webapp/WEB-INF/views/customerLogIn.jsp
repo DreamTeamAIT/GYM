@@ -5,10 +5,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<jsp:include page="../common/header.jsp"></jsp:include>
 </head>
 <body>
  <div align="center">
-  <h1>Customer Register Form</h1>
+  <h1>Customer Log-in Form</h1>
   <form action="<%= request.getContextPath() %>/logIn" method="post">
    <table style="with: 80%">
    <tr>
@@ -23,5 +24,6 @@
    <input type="submit" value="Submit" />
   </form>
  </div>
+  <jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>

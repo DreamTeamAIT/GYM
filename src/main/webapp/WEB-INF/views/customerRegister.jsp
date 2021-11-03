@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<jsp:include page="../common/header.jsp"></jsp:include>
 </head>
 <body>
  <div align="center">
@@ -31,5 +32,6 @@
    <input type="submit" value="Submit" />
   </form>
  </div>
+  <jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>
