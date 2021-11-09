@@ -2,12 +2,14 @@ package net.javasguides.registration.model;
 
 
 public class Customer {
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String password;
 	private String email;
 	
-	public Customer(String firstName2, String lastName2, String password2, String email2) {
+	public Customer(String id2,String firstName2, String lastName2, String password2, String email2) {
+		id = id2;
 		firstName = firstName2;
 		lastName = lastName2;
 		password = password2;
@@ -39,6 +41,10 @@ public class Customer {
 	{
 		this.email = email;
 	}
-	
-	
+	public String getId() {
+		return id;	}
+	public void setId(String input)
+	{
+		id= input; 
+	}
 }

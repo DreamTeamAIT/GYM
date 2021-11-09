@@ -8,7 +8,9 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 </head>
 <body>
+<form action="<%= request.getContextPath() %>/customerDelete" method="post">
 	<h1>Account succcessfully deleted</h1>
+	</form>
 </body>
   <jsp:include page="../common/footer.jsp"></jsp:include>
 </html>

@@ -11,7 +11,7 @@
 <body>
  <div align="center">
   <h1>Delete Customer Account</h1>
-  <form action="<%= request.getContextPath() %>/deleteCustomer" method="post">
+  <form action="<%= request.getContextPath() %>/a" method="post">
    <table style="with: 80%">
     <tr>
      <td>First Name</td>

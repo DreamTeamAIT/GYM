@@ -14,10 +14,6 @@
   <form action="<%= request.getContextPath() %>/updateCustomer" method="post">
    <table style="with: 80%">
     <tr>
-     <td>User ID</td>
-     <td><input type="text" name="id" /></td>
-    </tr>
-    <tr>
      <td>First Name</td>
      <td><input type="text" name="firstName" /></td>
     </tr>

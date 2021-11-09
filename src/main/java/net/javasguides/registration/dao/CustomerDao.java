@@ -91,10 +91,9 @@ public class CustomerDao {
         
     }
     // Deletes the customer in the database
-    public void deleteCustomer(Customer customer) throws ClassNotFoundException
+    public void deleteCustomer(String idString) throws ClassNotFoundException
 {
-    	String 	DELETE_USERS_SQL = "DELETE FROM customer WHERE first_name = \"" + customer.getFirstName() 
-    	+ "\" AND last_name = \"" + customer.getLastName() + "\" AND password = \"" + customer.getPassword() + "\" ;" ;
+    	String 	DELETE_USERS_SQL = "DELETE FROM customer WHERE id = \"" + idString + "\" ;" ;
         
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -252,12 +251,12 @@ public class CustomerDao {
 	            // Step 3: Execute the query or update query
 	            ResultSet result = preparedStatement.executeQuery();
 				while (result.next()) {
-	                int id  = result.getInt("id");
+	                String id  = result.getString("id");
 	                String firstName = result.getString("first_name");
 	                String lastName = result.getString("last_name");
 	                String password = result.getString("password");
 	                String email = result.getString("email");
-	                customerList.add(new Customer(firstName,lastName, password, email));
+	                customerList.add(new Customer(id,firstName,lastName, password, email));
 	            }
 				return customerList;
 	        } catch (SQLException e) {

@@ -48,7 +48,7 @@ public class CustomerLogInServlet extends HttpServlet {
 		try {
 			//We want to check for password and email duplicates, and if there are we want to stop the page and display an error
 			//If it passes, we want to register the customer.
-			Customer customer = new Customer("", "", password, email);
+			Customer customer = new Customer("","", "", password, email);
 			boolean check = customerDao.logInChecker(customer);
 			System.out.println(check);
 			if (check)

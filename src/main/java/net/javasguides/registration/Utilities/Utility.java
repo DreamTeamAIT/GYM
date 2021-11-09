@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Utility
 {
 	private static String username = "root";
-	private static String password = "root";
+	private static String password = "geochelone";
 	public static Connection getConnection()
 	{
 		Connection connection = null;

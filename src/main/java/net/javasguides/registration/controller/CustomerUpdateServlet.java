@@ -18,7 +18,7 @@ import net.javasguides.registration.model.Customer;
 @WebServlet("/updateCustomer")
 public class CustomerUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private String idString;
 	private CustomerDao customerDao = new CustomerDao();
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,6 +33,7 @@ public class CustomerUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		idString = request.getParameter("id");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/customerUpdate.jsp");
 		dispatcher.forward(request, response);
@@ -46,12 +47,12 @@ public class CustomerUpdateServlet extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String id = request.getParameter("id");
+		String id = idString;
 		try 
 		{
 			//We want to check for password and email duplicates, and if there are we want to stop the page and display an error
 			//If it passes, we want to register the customer.
-			Customer customer = new Customer(firstName, lastName, password, email);
+			Customer customer = new Customer("",firstName, lastName, password, email);
 			
 			customerDao.updateCustomer(customer, id);
 			

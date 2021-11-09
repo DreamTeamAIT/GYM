@@ -26,13 +26,14 @@
    <hr>
    <div class="container text-left">
 
-    <a href="<%=request.getContextPath()%>/new"
+    <a href="<%=request.getContextPath()%>/customerRegister"
      class="btn btn-success">Add Customer</a>
    </div>
    <br>
    <table class="table table-bordered">
     <thead>
      <tr>
+     <th>ID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>password</th>
@@ -44,14 +45,15 @@
      <c:forEach var="customer" items="${listCustomer}">
 
       <tr>
+      <td><c:out value="${customer.id}" /></td>
        <td><c:out value="${customer.firstName}" /></td>
        <td><c:out value="${customer.lastName}" /></td>
        <td><c:out value="${customer.password}" /></td>
        <td><c:out value="${customer.email}" /></td>
 
-       <td><a href="edit?id=<c:out value='${todo.id}' />">Edit</a>
+       <td><a href="updateCustomer?id=<c:out value='${customer.id}' />">Edit</a>
         &nbsp;&nbsp;&nbsp;&nbsp; <a
-        href="delete?id=<c:out value='${todo.id}' />">Delete</a></td>
+        href="customerDelete?id=<c:out value='${customer.id}' />">Delete</a></td>
 
        <!--  <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button>
                  <button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete</button></td> -->
